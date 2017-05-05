@@ -12,5 +12,29 @@
     <artifactId>my-sso-service</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.michealyang</groupId>
+            <artifactId>my-sso-access</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.michealyang</groupId>
+            <artifactId>my-commons-dto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.michealyang</groupId>
+            <artifactId>my-commons-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+
+    </dependencies>
+
 
 </project>

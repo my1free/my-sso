@@ -15,6 +15,8 @@
         <mysql-version>5.1.9</mysql-version>
         <mybatis-version>3.3.0</mybatis-version>
         <mybatis-spring-version>1.2.2</mybatis-spring-version>
+        <my.commons.version>1.0.0-SNAPSHOT</my.commons.version>
+        <servlet.api.version>2.5</servlet.api.version>
     </properties>
 
     <modules>
@@ -26,6 +28,26 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.michealyang</groupId>
+                <artifactId>my-sso-access</artifactId>
+                <version>${release.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.michealyang</groupId>
+                <artifactId>my-sso-service</artifactId>
+                <version>${release.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.michealyang</groupId>
+                <artifactId>my-commons-dto</artifactId>
+                <version>${my.commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.michealyang</groupId>
+                <artifactId>my-commons-utils</artifactId>
+                <version>${my.commons.version}</version>
+            </dependency>
             <!-- spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -44,6 +66,11 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>  <!-- is needed by DispathcerServlet &&  InternalResourceViewResolver   not spring-web -->
+                <version>${spring-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>  <!-- is needed by DispathcerServlet &&  InternalResourceViewResolver   not spring-web -->
                 <version>${spring-version}</version>
             </dependency>
@@ -51,6 +78,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>      <!-- is needed by Transaction -->
                 <version>${spring-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${servlet.api.version}</version>
             </dependency>
             <!-- Mysql Connector -->
             <dependency>

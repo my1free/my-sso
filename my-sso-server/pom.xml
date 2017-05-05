@@ -13,4 +13,105 @@
     <packaging>war</packaging>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>com.michealyang</groupId>
+            <artifactId>my-commons-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.michealyang</groupId>
+            <artifactId>my-commons-dto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.michealyang</groupId>
+            <artifactId>my-sso-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.michealyang</groupId>
+            <artifactId>my-sso-access</artifactId>
+        </dependency>
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId> <!-- is needed by freemarker -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>  <!-- is needed by DispathcerServlet &&  InternalResourceViewResolver   not spring-web -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>  <!-- is needed by DispathcerServlet &&  InternalResourceViewResolver   not spring-web -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>      <!-- is needed by Transaction -->
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+        <!-- Mysql Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+
+        <!--freemarker-->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.23</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <finalName>sso-server</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.10</version>
+                <configuration>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>9999</port>
+                        </connector>
+                    </connectors>
+                    <stopPort>9090</stopPort>
+                    <stopKey>a</stopKey>
+                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                    <contextPath>/</contextPath>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

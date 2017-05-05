@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Appenders -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %t [%p] (%c:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <!--每天的日志文件-->
+    <appender name="logfile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sso-server.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %t [%p] (%c:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="errorfile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/error.log"/>
+        <param name="Threshold" value="error" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %t [%p] (%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- 3rdparty Loggers -->
+    <logger name="org.springframework.core">
+        <level value="info"/>
+    </logger>
+
+    <logger name="org.springframework.beans">
+        <level value="info"/>
+    </logger>
+
+    <logger name="org.springframework.context">
+        <level value="info"/>
+    </logger>
+
+    <logger name="org.springframework.web">
+        <level value="info"/>
+    </logger>
+
+    <logger name="java.sql">
+        <level value="debug"/>
+    </logger>
+
+    <!-- Root Logger -->
+    <root>
+        <priority value="debug"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="logfile"/>
+        <appender-ref ref="errorfile"/>
+    </root>
+
+</log4j:configuration>

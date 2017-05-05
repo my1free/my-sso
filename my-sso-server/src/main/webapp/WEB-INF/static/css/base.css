@@ -1,0 +1,26 @@
+
+.ft-red {
+    color: red;
+}
+
+.mg-top-5vh{
+    margin-top: 5vh;
+}
+
+.mg-top-10vh{
+    margin-top: 10vh;
+}
+
+.ft-size-16{
+    font-size: 16px;
+}
+
+.ft-size-20{
+    font-size: 20px;
+}
+
+.alert-danger {
+    color: #ffffff;
+    background-color: #ff5757;
+    border-color: #ebccd1;
+}
