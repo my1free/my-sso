@@ -59,7 +59,8 @@ public class SsoUserController {
     }
 
     @RequestMapping("/r/logout")
-    public String logout(HttpServletRequest request,
+    public String logout(Model model,
+                         HttpServletRequest request,
                          HttpServletResponse response,
                          String origin) throws IOException {
         logger.info("[logout] origin=#{}", origin);
@@ -71,14 +72,14 @@ public class SsoUserController {
         HttpSession session = request.getSession(false);
         if(session != null)
             session.invalidate();
-        if(!response.isCommitted()) {
-            String targetUrl = "/sso/user/r/login";
-            if(StringUtils.isNotBlank(origin)) {
-                targetUrl += "?origin=" + HttpUtil.formatUrl(origin, "");
-            }
-            response.sendRedirect(targetUrl);
+        String loginUrl = "/sso/user/r/login";
+        if(StringUtils.isNotBlank(origin)) {
+            loginUrl += "?origin=" + HttpUtil.formatUrl(origin, "");
         }
-        return "";
+
+        model.addAttribute("loginUrl", loginUrl);
+
+        return "/user/logout";
     }
 
     /**
