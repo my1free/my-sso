@@ -2,6 +2,7 @@ package com.michealyang.sso.server.controller;
 
 import com.michealyang.commons.dto.Constants;
 import com.michealyang.commons.dto.ResultDto;
+import com.michealyang.commons.utils.HttpUtil;
 import com.michealyang.commons.utils.JsonResponseUtil;
 import com.michealyang.sso.access.vo.UserVo;
 import com.michealyang.sso.service.UserService;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLDecoder;
 
 @Controller
 @RequestMapping("/sso/user")
@@ -49,7 +51,7 @@ public class SsoUserController {
             response.sendRedirect("/");
         }
         if(StringUtils.isNotBlank(origin) &&  userVo != null) {
-            String newOrigin = origin.indexOf("?") == -1 ? origin + "?token=" + userVo.getToken()
+            String newOrigin = origin.indexOf("?") == -1 ? URLDecoder.decode(origin, "utf-8") + "?token=" + userVo.getToken()
                     : "&token=" +  userVo.getToken();
             response.sendRedirect(newOrigin);
         }
@@ -72,7 +74,7 @@ public class SsoUserController {
         if(!response.isCommitted()) {
             String targetUrl = "/sso/user/r/login";
             if(StringUtils.isNotBlank(origin)) {
-                targetUrl += "?origin=" + origin;
+                targetUrl += "?origin=" + HttpUtil.formatUrl(origin, "");
             }
             response.sendRedirect(targetUrl);
         }
@@ -144,7 +146,7 @@ public class SsoUserController {
         }
         String newOrigin = "/";
         if(StringUtils.isNotBlank(origin)) {
-             newOrigin = origin.indexOf("?") == -1 ? origin + "?token=" + (String) resultDto.getData()
+             newOrigin = origin.indexOf("?") == -1 ? URLDecoder.decode(origin, "utf-8") + "?token=" + (String) resultDto.getData()
                     : "&token=" + (String) resultDto.getData();
         }
 

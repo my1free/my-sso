@@ -49,6 +49,7 @@
 </style>
 <body>
 <div>
+    <input id="loginUrl" value="${loginUrl!"/sso/user/r/login"}" class="hidden">
     <form id="signup" class="form-horizontal col-md-4 col-md-offset-2">
         <div class="form-group">
             <label class="col-sm-3 control-label">用户名</label>
@@ -81,7 +82,7 @@
             </div>
         </div>
         <div class="form-group">
-            <a class="col-lg-offset-8 col-sm-offset-8 col-xs-offset-7" href="/sso/user/r/login"><i>已有账号？登录</i></a>
+            <a class="col-lg-offset-8 col-sm-offset-8 col-xs-offset-7" href="${loginUrl!"/sso/user/r/login"}"><i>已有账号？登录</i></a>
         </div>
     </form>
 </div>

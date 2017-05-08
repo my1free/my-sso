@@ -74,7 +74,7 @@
             </div>
         </div>
         <div class="form-group">
-            <a class="col-lg-offset-10 col-sm-offset-10 col-xs-offset-10" href="/sso/user/r/signup"><i>注册</i></a>
+            <a class="col-lg-offset-10 col-sm-offset-10 col-xs-offset-10" href="${signupUrl!"/sso/user/r/signup"}"><i>注册</i></a>
         </div>
     </form>
 </div>

@@ -2,6 +2,7 @@ package com.michealyang.sso.server.filter;
 
 import com.michealyang.sso.access.vo.UserVo;
 import com.michealyang.sso.service.util.UserUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -61,6 +62,13 @@ public class UserFilter extends OncePerRequestFilter {
         if ((!uri.equals(LOGIN_URI) && !uri.equals(SIGNUP_URI) && !uri.equals(LOGOUT_URI))
                 && (userVo == null || userVo.getUser() == null)) {
             response.sendRedirect(LOGIN_URI);
+        }
+
+        if(uri.equals(LOGIN_URI)){
+            request.setAttribute("signupUrl", StringUtils.isBlank(request.getQueryString()) ? SIGNUP_URI : SIGNUP_URI + "?" + request.getQueryString());
+        }
+        if(uri.equals(SIGNUP_URI)){
+            request.setAttribute("loginUrl", StringUtils.isBlank(request.getQueryString()) ? LOGIN_URI : LOGIN_URI + "?" + request.getQueryString());
         }
 
         UserUtil.bind(userVo);

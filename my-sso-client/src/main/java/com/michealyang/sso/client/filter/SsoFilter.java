@@ -90,6 +90,11 @@ public class SsoFilter  extends OncePerRequestFilter {
             return;
         }
 
+        if("/favicon.ico".equals(uri)){
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         //3. 对于Ajax请求，要通过
         String requestType = request.getHeader("X-Requested-With");
         if("XMLHttpRequest".equals(requestType)){

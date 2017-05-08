@@ -48,7 +48,9 @@ $("#signupBtn").click(function(){
     }
     DlgProxy.swalSimpleSuccess(resp.msg);
     window.setTimeout(function(){
-        window.location.href = "/sso/user/r/login";
+        var loginUrl = $("#loginUrl").val();
+        console.log(loginUrl);
+        window.location.href = loginUrl;
     }, 2000)
 });
 
