@@ -43,6 +43,8 @@ public class SsoFilter  extends OncePerRequestFilter {
 
     private String host;
 
+    private String ssoLogout;
+
     public String getSsoLogin() {
         return ssoLogin;
     }
@@ -65,6 +67,14 @@ public class SsoFilter  extends OncePerRequestFilter {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public String getSsoLogout() {
+        return ssoLogout;
+    }
+
+    public void setSsoLogout(String ssoLogout) {
+        this.ssoLogout = ssoLogout;
     }
 
     @Override
@@ -109,6 +119,9 @@ public class SsoFilter  extends OncePerRequestFilter {
                 goOn(request, response, cookie.getValue());
             }
         }
+
+        request.setAttribute("ssoLogoutUrl", ssoLogout + "?origin=" + HttpUtil.formatUrl(host, ORIGIN_URI));
+
         filterChain.doFilter(request, response);
     }
 
@@ -134,9 +147,8 @@ public class SsoFilter  extends OncePerRequestFilter {
 
     private void redirectToSso(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String preUrl = request.getRequestURL().toString();
-        String localHost = HttpUtil.getHost(preUrl, request.getRequestURI());
         CookieUtil.setCookie(response, COOKIE_PRE_URL, preUrl);
-        String targetUrl = ssoLogin + "?origin=" + HttpUtil.formatUrl(host, ORIGIN_URI);;
+        String targetUrl = ssoLogin + "?origin=" + HttpUtil.formatUrl(host, ORIGIN_URI);
         response.sendRedirect(targetUrl);
     }
 

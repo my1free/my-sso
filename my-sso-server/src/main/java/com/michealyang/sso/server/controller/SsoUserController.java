@@ -57,8 +57,10 @@ public class SsoUserController {
     }
 
     @RequestMapping("/r/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        logger.info("[logout]");
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response,
+                         String origin) throws IOException {
+        logger.info("[logout] origin=#{}", origin);
         UserVo userVo = UserUtil.getUser();
         if(userVo != null) {
             userService.clearCache(userVo.getToken());
@@ -68,7 +70,11 @@ public class SsoUserController {
         if(session != null)
             session.invalidate();
         if(!response.isCommitted()) {
-            response.sendRedirect("/sso/user/r/login");
+            String targetUrl = "/sso/user/r/login";
+            if(StringUtils.isNotBlank(origin)) {
+                targetUrl += "?origin=" + origin;
+            }
+            response.sendRedirect(targetUrl);
         }
         return "";
     }
