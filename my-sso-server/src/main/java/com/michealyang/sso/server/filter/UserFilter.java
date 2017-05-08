@@ -26,7 +26,7 @@ public class UserFilter extends OncePerRequestFilter {
 
     private static final String LOGIN_URI = "/sso/user/r/login";
     private static final String SIGNUP_URI = "/sso/user/r/signup";
-    private static final String LOGOUT_URI = "/sso/user/logout";
+    private static final String LOGOUT_URI = "/sso/user/r/logout";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
