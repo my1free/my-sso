@@ -6,6 +6,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.michealyang.commons.utils.CookieUtil;
 import com.michealyang.commons.utils.HttpUtil;
+import com.michealyang.commons.utils.TimeLog;
 import com.michealyang.sso.access.model.User;
 import com.michealyang.sso.client.util.UserUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -83,6 +84,7 @@ public class SsoFilter  extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         logger.info("[doFilterInternal] uri=#{}", uri);
 
+        long start = System.currentTimeMillis();
         UserUtil.unbindUser();
 
         //1. 对于静态资源，要通过
@@ -129,6 +131,8 @@ public class SsoFilter  extends OncePerRequestFilter {
         }
 
         request.setAttribute("ssoLogoutUrl", ssoLogout + "?origin=" + HttpUtil.formatUrl(host, ORIGIN_URI));
+
+        TimeLog.log("[doFilterInternal]", "total time", start);
 
         filterChain.doFilter(request, response);
     }
@@ -195,8 +199,10 @@ public class SsoFilter  extends OncePerRequestFilter {
                          String token) {
 
         if(StringUtils.isBlank(token)) return false;
+        long start = System.currentTimeMillis();
         String res = HttpUtil.doGetWithOkHttp(ssoAuth + "?token=" + token);
         logger.info("[auth] res=#{}", res);
+        TimeLog.log("[auth]", "auth time", start);
         if(StringUtils.isBlank(res)) {
             logger.error("[auth] authentication failed");
             return false;
