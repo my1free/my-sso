@@ -7,6 +7,7 @@ import com.google.common.base.Splitter;
 import com.michealyang.commons.utils.CookieUtil;
 import com.michealyang.commons.utils.HttpUtil;
 import com.michealyang.sso.access.model.User;
+import com.michealyang.sso.client.util.UserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +82,8 @@ public class SsoFilter  extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String uri = request.getRequestURI();
         logger.info("[doFilterInternal] uri=#{}", uri);
+
+        UserUtil.unbindUser();
 
         //1. 对于静态资源，要通过
         //2. 对于API接口，要通过
@@ -230,6 +233,7 @@ public class SsoFilter  extends OncePerRequestFilter {
             user.setUserName(userName);
             HttpSession session = request.getSession(true);
             session.setAttribute(SESSION_KEY, user);
+            UserUtil.bind(user);
         }catch (Exception e){
             logger.error("[auth] string parsed to json failed. e=#{}", e);
             return false;
