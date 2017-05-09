@@ -90,7 +90,8 @@ public class SsoFilter  extends OncePerRequestFilter {
         //1. 对于静态资源，要通过
         //2. 对于API接口，要通过
         if(uri.startsWith("/static/")
-                || uri.startsWith("/api/")){
+                || uri.startsWith("/api/")
+                || uri.startsWith("/error")){
             filterChain.doFilter(request, response);
             return;
         }
@@ -124,6 +125,7 @@ public class SsoFilter  extends OncePerRequestFilter {
             Cookie cookie = WebUtils.getCookie(request, COOKIE_SSOID);
             if(cookie == null || StringUtils.isBlank(cookie.getValue())){
                 redirectToSso(request, response);
+                return;
             }else {
                 //刷新登录状态时效
                 goOn(request, response, cookie.getValue());

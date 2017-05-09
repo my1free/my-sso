@@ -38,7 +38,8 @@ public class UserFilter extends OncePerRequestFilter {
         //1. 对于静态资源，要通过
         //2. 对于API接口，要通过
         if(uri.startsWith("/static/")
-                || uri.startsWith("/api/")){
+                || uri.startsWith("/api/")
+                || uri.startsWith("/error")){
             filterChain.doFilter(request, response);
             return;
         }
@@ -55,13 +56,16 @@ public class UserFilter extends OncePerRequestFilter {
             return;
         }
 
-        HttpSession session = request.getSession();
-        logger.info("sessionId=#{}", session.getId());
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            logger.info("sessionId=#{}", session.getId());
+        }
         UserVo userVo = (UserVo)WebUtils.getSessionAttribute(request, "user");
         logger.info("[doFilterInternal] userVo=#{}", userVo);
         if ((!uri.equals(LOGIN_URI) && !uri.equals(SIGNUP_URI) && !uri.equals(LOGOUT_URI))
                 && (userVo == null || userVo.getUser() == null)) {
             response.sendRedirect(LOGIN_URI);
+            return;
         }
 
         if(uri.equals(LOGIN_URI)){

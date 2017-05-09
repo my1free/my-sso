@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class SsoBaseController {
@@ -28,5 +27,17 @@ public class SsoBaseController {
         model.addAttribute("id", userVo.getUser().getId());
         model.addAttribute("userName", userVo.getUser().getUserName());
         return "index";
+    }
+
+    @RequestMapping("/error/404")
+    public String index404(Model model){
+        logger.info("[index404]");
+        return "404";
+    }
+
+    @RequestMapping("/error/500")
+    public String index500(Model model){
+        logger.info("[index500]");
+        return "500";
     }
 }
