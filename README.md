@@ -10,7 +10,7 @@ sso project
 ##接入方法
 1. 引入依赖
 pom.xml中添加
-```
+```xml
 <dependency>
     <groupId>com.michealyang</groupId>
     <artifactId>my-sso-client</artifactId>
