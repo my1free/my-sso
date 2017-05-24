@@ -1,14 +1,14 @@
 # my-sso
 sso project
 
-##支持功能
+## 支持功能
 * 用户登录
 * 用户注册
 * 用户注销
 * AB认证
 
 
-##接入方法
+## 接入方法
 
 1. 引入依赖
 pom.xml中添加
@@ -47,10 +47,9 @@ applicationContext.xml中添加
 </bean>
 ```
 其中
->${sso.login}是sso登录页面地址
+> ${sso.login}是sso登录页面地址
+> ${sso.auth}是用户认证地址
 
->${sso.auth}是用户认证地址
+> ${sso.logout}是注销地址
 
->${sso.logout}是注销地址
-
->${my.host}是本机域名，用于跳转回来用
+> ${my.host}是本机域名，用于跳转回来用
