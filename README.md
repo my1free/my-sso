@@ -48,11 +48,10 @@ applicationContext.xml中添加
 ```
 其中
 > ${sso.login}是sso登录页面地址
+
 > ${sso.auth}是用户认证地址
 
 > ${sso.logout}是注销地址
 
 > ${my.host}是本机域名，用于跳转回来用
 
->sdf
->sdfa
