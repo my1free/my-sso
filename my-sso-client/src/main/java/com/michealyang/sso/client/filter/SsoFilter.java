@@ -2,6 +2,7 @@ package com.michealyang.sso.client.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.michealyang.commons.utils.CookieUtil;
@@ -47,6 +48,8 @@ public class SsoFilter  extends OncePerRequestFilter {
 
     private String ssoLogout;
 
+    private String uriIgnore;
+
     public String getSsoLogin() {
         return ssoLogin;
     }
@@ -79,6 +82,14 @@ public class SsoFilter  extends OncePerRequestFilter {
         this.ssoLogout = ssoLogout;
     }
 
+    public String getUriIgnore() {
+        return uriIgnore;
+    }
+
+    public void setUriIgnore(String uriIgnore) {
+        this.uriIgnore = uriIgnore;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String uri = request.getRequestURI();
@@ -92,6 +103,11 @@ public class SsoFilter  extends OncePerRequestFilter {
         if(uri.startsWith("/static/")
                 || uri.startsWith("/api/")
                 || uri.startsWith("/error")){
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if(ignoreUri(uri)){
             filterChain.doFilter(request, response);
             return;
         }
@@ -164,6 +180,25 @@ public class SsoFilter  extends OncePerRequestFilter {
         CookieUtil.setCookie(response, COOKIE_PRE_URL, preUrl);
         String targetUrl = ssoLogin + "?origin=" + HttpUtil.formatUrl(host, ORIGIN_URI);
         response.sendRedirect(targetUrl);
+    }
+
+    private boolean ignoreUri(String uri){
+        if(StringUtils.isBlank(uriIgnore) || StringUtils.isBlank(uri)){
+            return false;
+        }
+        if(!uri.endsWith("/")){
+            uri += "/";
+        }
+        String[] ignoreUris = uriIgnore.split(",");
+        if(ignoreUris == null || ignoreUris.length <= 0) {
+            return false;
+        }
+        for(String ignoreUri : ignoreUris){
+            if(uri.startsWith(CharMatcher.WHITESPACE.trimFrom(ignoreUri))){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
