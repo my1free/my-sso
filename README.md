@@ -69,4 +69,20 @@ applicationContext.xml中添加
 </bean>
 ```
 
+## 部署流程
+1. 将`sso-server.war`部署到servlet容器中
+2. 创建数据库和数据表
+```sql
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(64) NOT NULL DEFAULT '',
+  `passwd` varchar(256) NOT NULL DEFAULT '',
+  `phone_num` varchar(20) NOT NULL DEFAULT '',
+  `salt` varchar(45) NOT NULL DEFAULT '',
+  `valid` tinyint(3) NOT NULL DEFAULT '1',
+  `ctime` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_uq_username` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+```
 
