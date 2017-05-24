@@ -73,6 +73,8 @@ applicationContext.xml中添加
 1. 将`sso-server.war`部署到servlet容器中
 2. 创建数据库和数据表
 ```sql
+CREATE DATABASE sso;
+
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(64) NOT NULL DEFAULT '',
