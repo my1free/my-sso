@@ -88,6 +88,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 ```
 注意：
-sso依赖my-commons-dto和my-commons-utils两个基础包，编译`sso-server.war`包的时候需要注意先编译上述两个包。
+sso依赖`my-commons-dto`和`my-commons-utils`两个基础包，编译`sso-server.war`包的时候需要注意先编译上述两个包。
 
 
