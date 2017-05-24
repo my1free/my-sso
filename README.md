@@ -55,3 +55,17 @@ applicationContext.xml中添加
 
 > ${my.host}是本机域名，用于跳转回来用
 
+## 高级设置
+### 无需登录验证uri设置
+配置SsoFilter中的成员变量uriIgnore，所配置的uri都不会进行登录验证。
+多个uri通过逗号分隔
+```xml
+<bean id="ssoFilter" class="com.michealyang.sso.client.filter.SsoFilter">
+    <property name="uriIgnore" value="
+    /appStore/,
+    /webappStore/
+    "></property>
+</bean>
+```
+
+
